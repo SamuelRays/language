@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.view.MainWindowController">
+   <children>
+      <ChoiceBox fx:id="language" layoutX="14.0" layoutY="15.0" prefWidth="150.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="45.0" />
+      <ChoiceBox fx:id="category" layoutX="14.0" layoutY="63.0" prefWidth="150.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="125.0" />
+      <Separator layoutX="306.0" layoutY="15.0" orientation="VERTICAL" prefHeight="400.0" prefWidth="6.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="0.0" />
+      <Label layoutX="15.0" layoutY="14.0" text="Language" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0" />
+      <Label layoutX="15.0" layoutY="87.0" text="Category" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="95.0" />
+      <Label layoutX="15.0" layoutY="179.0" text="Revise type" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="175.0" />
+      <ChoiceBox fx:id="reviseType" layoutX="15.0" layoutY="223.0" prefWidth="150.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="205.0" />
+      <Button fx:id="start" layoutX="100.0" layoutY="346.0" mnemonicParsing="false" onAction="#start" prefWidth="155.0" text="Start" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" />
+      <AnchorPane fx:id="actionPane" layoutX="321.0" layoutY="61.0" prefHeight="400.0" prefWidth="350.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label layoutX="40.0" layoutY="85.0" text="Word to translate" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="85.0" />
+            <Label layoutX="40.0" layoutY="160.0" text="Translation" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="160.0" />
+            <TextField fx:id="translation" layoutX="30.0" layoutY="169.0" prefWidth="300.0" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="190.0" />
+            <TextField fx:id="wordToTranslate" editable="false" layoutX="30.0" layoutY="115.0" prefWidth="300.0" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="115.0" />
+            <Button fx:id="checkAndNext" layoutX="265.0" layoutY="238.0" mnemonicParsing="false" onAction="#checkOrNext" prefWidth="80.0" text="Check" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="240.0" />
+            <Rectangle fx:id="currentResultArea" arcHeight="5.0" arcWidth="5.0" height="30.0" layoutX="30.0" layoutY="240.0" stroke="BLACK" strokeType="INSIDE" width="200.0" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="240.0">
+               <fill>
+                  <LinearGradient endX="1.0" endY="1.0">
+                     <stops>
+                        <Stop color="MAGENTA" />
+                        <Stop color="AQUA" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </fill>
+            </Rectangle>
+            <Label fx:id="currentResult" alignment="CENTER" layoutX="40.0" layoutY="240.0" prefWidth="200.0" text="WRONG" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="240.0">
+               <font>
+                  <Font name="Angsana New Bold" size="24.0" />
+               </font>
+               <textFill>
+                  <LinearGradient endX="1.0" endY="1.0">
+                     <stops>
+                        <Stop color="AQUA" />
+                        <Stop color="MAGENTA" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </textFill>
+            </Label>
+            <AnchorPane fx:id="resultsPane" layoutX="150.0" layoutY="282.0" prefHeight="110.0" prefWidth="350.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="290.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#showResults" text="Watch results" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="30.0" />
+                  <Label layoutX="30.0" layoutY="7.0" text="Correct answers" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="7.0" />
+                  <Label layoutX="30.0" layoutY="32.0" text="Wrong answers" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="32.0" />
+                  <Label fx:id="correctAnswers" layoutX="150.0" layoutY="7.0" text="50" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="7.0" />
+                  <Label fx:id="wrongAnswers" layoutX="150.0" layoutY="32.0" text="50" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="32.0" />
+               </children>
+            </AnchorPane>
+            <ProgressBar fx:id="wordsChecked" layoutX="30.0" layoutY="30.0" prefWidth="300.0" progress="0.0" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="50.0" />
+            <Label fx:id="wordsAmounts" layoutX="290.0" layoutY="14.0" text="2/50" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

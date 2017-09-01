@@ -1,5 +1,6 @@
 package com;
 
+import com.util.DataSource;
 import com.view.MainWindowController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -21,6 +22,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        DataSource.connect();
+
         this.primaryStage = primaryStage;
         primaryStage.setResizable(false);
         primaryStage.setTitle("Mỹ Hân Hoàn Hảo");

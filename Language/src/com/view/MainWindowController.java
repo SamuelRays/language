@@ -18,6 +18,8 @@ public class MainWindowController {
     @FXML
     private ChoiceBox<String> reviseType;
     @FXML
+    private Button addNewWord;
+    @FXML
     private Button start;
     @FXML
     private AnchorPane actionPane;
@@ -45,6 +47,11 @@ public class MainWindowController {
     @FXML
     private void initialize() {
         actionPane.setVisible(false);
+    }
+
+    @FXML
+    private void addNewWord() {
+
     }
 
     @FXML

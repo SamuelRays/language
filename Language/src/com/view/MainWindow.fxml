@@ -14,19 +14,19 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.view.MainWindowController">
    <children>
-      <ChoiceBox fx:id="language" layoutX="14.0" layoutY="15.0" prefWidth="150.0" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="45.0" />
-      <ChoiceBox fx:id="category" layoutX="14.0" layoutY="63.0" prefWidth="150.0" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="125.0" />
+      <ChoiceBox fx:id="language" layoutX="25.0" layoutY="38.0" prefWidth="150.0" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="38.0" />
+      <ChoiceBox fx:id="category" layoutX="25.0" layoutY="98.0" prefWidth="150.0" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="98.0" />
       <Separator layoutX="306.0" layoutY="15.0" orientation="VERTICAL" prefHeight="400.0" prefWidth="6.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="0.0" />
       <Label layoutX="15.0" layoutY="14.0" text="Language" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="15.0" />
-      <Label layoutX="15.0" layoutY="87.0" text="Category" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="95.0" />
-      <Label layoutX="15.0" layoutY="179.0" text="Revise type" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="175.0" />
-      <ChoiceBox fx:id="reviseType" layoutX="15.0" layoutY="223.0" prefWidth="150.0" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="205.0" />
+      <Label layoutX="30.0" layoutY="75.0" text="Category" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="75.0" />
+      <Label layoutX="30.0" layoutY="135.0" text="Revise type" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="135.0" />
+      <ChoiceBox fx:id="reviseType" layoutX="25.0" layoutY="158.0" prefWidth="150.0" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="158.0" />
       <Button fx:id="start" layoutX="100.0" layoutY="346.0" mnemonicParsing="false" onAction="#start" prefWidth="150.0" text="Start" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="25.0" />
       <AnchorPane fx:id="actionPane" layoutX="321.0" layoutY="61.0" prefHeight="400.0" prefWidth="350.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label layoutX="40.0" layoutY="85.0" text="Word to translate" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="85.0" />
-            <Label layoutX="40.0" layoutY="160.0" text="Translation" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="160.0" />
-            <TextField fx:id="translation" layoutX="30.0" layoutY="169.0" prefWidth="300.0" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="190.0" />
+            <Label layoutX="40.0" layoutY="88.0" text="Word to translate" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="88.0" />
+            <Label layoutX="40.0" layoutY="163.0" text="Translation" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="163.0" />
+            <TextField fx:id="translation" layoutX="30.0" layoutY="190.0" prefWidth="300.0" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="190.0" />
             <TextField fx:id="wordToTranslate" editable="false" layoutX="30.0" layoutY="115.0" prefWidth="300.0" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="115.0" />
             <Button fx:id="checkAndNext" layoutX="250.0" layoutY="242.0" mnemonicParsing="false" onAction="#checkOrNext" prefWidth="80.0" text="Check" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="242.0" />
             <Rectangle fx:id="currentResultArea" arcHeight="5.0" arcWidth="5.0" height="30.0" layoutX="30.0" layoutY="240.0" stroke="BLACK" strokeType="INSIDE" width="200.0" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="240.0">
@@ -61,8 +61,8 @@
                   <Label fx:id="wrongAnswers" layoutX="150.0" layoutY="32.0" text="50" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="32.0" />
                </children>
             </AnchorPane>
-            <ProgressBar fx:id="wordsChecked" layoutX="30.0" layoutY="30.0" prefWidth="300.0" progress="0.0" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="50.0" />
-            <Label fx:id="wordsAmounts" layoutX="290.0" layoutY="14.0" text="2/50" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" />
+            <ProgressBar fx:id="wordsChecked" layoutX="30.0" layoutY="49.0" prefWidth="300.0" progress="0.0" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="49.0" />
+            <Label fx:id="wordsAmounts" layoutX="305.0" layoutY="22.0" text="2/50" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="22.0" />
          </children>
       </AnchorPane>
       <Button fx:id="addNewWord" layoutX="25.0" layoutY="259.0" mnemonicParsing="false" onAction="#addNewWord" prefWidth="150.0" text="Add new word" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="25.0" />

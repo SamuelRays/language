@@ -1,6 +1,9 @@
 package com.view;
 
 import com.Main;
+import com.util.DataSource;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
@@ -17,8 +20,6 @@ public class MainWindowController {
     private ChoiceBox<String> category;
     @FXML
     private ChoiceBox<String> reviseType;
-    @FXML
-    private Button addNewWord;
     @FXML
     private Button start;
     @FXML
@@ -47,33 +48,60 @@ public class MainWindowController {
     @FXML
     private void initialize() {
         actionPane.setVisible(false);
+        setLanguages();
+        language.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if (language.getValue() != null) {
+                    setCategories(language.getValue());
+                }
+            }
+        });
+    }
+
+    private void setLanguages() {
+        language.setItems(DataSource.availableLanguages());
+        if (!language.getItems().isEmpty()) {
+            String lang = language.getItems().get(0);
+            language.setValue(lang);
+            setCategories(lang);
+        }
+    }
+
+    private void setCategories(String language) {
+        category.setItems(DataSource.availableCategories(language));
+        if (!category.getItems().isEmpty()) {
+            category.setValue(category.getItems().get(0));
+        }
     }
 
     @FXML
     private void addNewWord() {
-
+        main.showAddWordWindow();
+        setLanguages();
     }
 
     @FXML
     private void start() {
         if (language.getValue() == null) {
-            alert("No language!!!",
+            main.alert("No language!!!",
                     "The language has not been chosen!!!",
                     "Choose the language motherfucker!!!");
         } else if (category.getValue() == null) {
-            alert("No category!!!",
-                    "The category has not been chosen",
+            main.alert("No category!!!",
+                    "The category has not been chosen!!!",
                     "Choose the category you idiotic piece of shit!!!");
         } else if (reviseType.getValue() == null) {
-            alert("No words amount",
-                    "The words amount has not been chosen",
-                    "Choose the words amount you dunce!!!");
-        }
-        else {
+            main.alert("No revise type!!!",
+                    "The revise type has not been chosen!!!",
+                    "Choose the revise type you dunce!!!");
+        } else {
             setDisables(true);
             clearActionPane();
             wordsAmounts.setText(currentWord + "/" + main.getWordsAmount());
             actionPane.setVisible(true);
+            main.setLanguage(language.getValue());
+            main.setCategory(category.getValue());
         }
     }
 
@@ -128,15 +156,6 @@ public class MainWindowController {
         category.setDisable(isDisable);
         reviseType.setDisable(isDisable);
         start.setDisable(isDisable);
-    }
-
-    private void alert(String title, String header, String content) {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.initOwner(main.getPrimaryStage());
-        alert.setTitle(title);
-        alert.setHeaderText(header);
-        alert.setContentText(content);
-        alert.showAndWait();
     }
 
     public void setMain(Main main) {

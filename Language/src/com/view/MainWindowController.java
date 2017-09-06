@@ -2,11 +2,15 @@ package com.view;
 
 import com.Main;
 import com.util.DataSource;
+import com.util.ReviseType;
+import com.util.Word;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.LinearGradient;
 import javafx.scene.shape.Rectangle;
 
 public class MainWindowController {
@@ -14,6 +18,8 @@ public class MainWindowController {
     private static final String CHECK = "Check";
     private static final String NEXT = "Next";
     private int currentWord;
+    private int correctAnswersAmount;
+    private int wrongAnswersAmount;
     @FXML
     private ChoiceBox<String> language;
     @FXML
@@ -57,11 +63,13 @@ public class MainWindowController {
                 }
             }
         });
+        reviseType.setItems(FXCollections.observableArrayList(ReviseType.names()));
     }
 
     private void setLanguages() {
         language.setItems(DataSource.availableLanguages());
         if (!language.getItems().isEmpty()) {
+            language.getItems().add(0, "All");
             String lang = language.getItems().get(0);
             language.setValue(lang);
             setCategories(lang);
@@ -71,6 +79,7 @@ public class MainWindowController {
     private void setCategories(String language) {
         category.setItems(DataSource.availableCategories(language));
         if (!category.getItems().isEmpty()) {
+            category.getItems().add(0, "All");
             category.setValue(category.getItems().get(0));
         }
     }
@@ -96,12 +105,25 @@ public class MainWindowController {
                     "The revise type has not been chosen!!!",
                     "Choose the revise type you dunce!!!");
         } else {
-            setDisables(true);
-            clearActionPane();
-            wordsAmounts.setText(currentWord + "/" + main.getWordsAmount());
-            actionPane.setVisible(true);
             main.setLanguage(language.getValue());
             main.setCategory(category.getValue());
+            main.setReviseType(ReviseType.get(reviseType.getValue()));
+            main.setWords(DataSource.getWordsList(main.getLanguage(), main.getCategory(), main.getReviseType()));
+            if (main.getWordsAmount() == 0) {
+                main.alert("No words!!!",
+                        "No words for this set of settings!!!",
+                        "Try some other settings motherfucker!!!");
+                main.setLanguage(null);
+                main.setCategory(null);
+                main.setReviseType(null);
+                main.setWords(null);
+            } else {
+                setDisables(true);
+                clearActionPane();
+                actionPane.setVisible(true);
+                wordsAmounts.setText(currentWord + "/" + main.getWordsAmount());
+                wordToTranslate.setText(main.getWords().get(currentWord).getWord());
+            }
         }
     }
 
@@ -120,19 +142,54 @@ public class MainWindowController {
     }
 
     private void check() {
-        boolean isFinished = wordAdd();
-        if (!isFinished) {
-            checkAndNext.setText(NEXT);
+        if (translation.getText() == null) {
+            main.alert("Empty field!!!",
+                    "The translation field is empty!!!",
+                    "Write something you schmuck!!!");
         } else {
-            checkAndNext.setDisable(true);
-            setDisables(false);
-            //TODO
+            Word word = main.getWords().get(currentWord);
+            word.setUserTranslation(translation.getText());
+            boolean isFinished = wordAdd();
+            word.incrementUses();
+            word.setUsedDate();
+            if (translation.getText().equalsIgnoreCase(word.getTranslation())) {
+                word.changeRate(true);
+                word.incrementCorrects();
+                correctAnswersAmount++;
+                currentResult.setText("CORRECT");
+                currentResult.setTextFill(LinearGradient.valueOf("from 0% 0% to 100% 100%, #00ffff , #ff00ff 100%"));
+                currentResult.setVisible(true);
+                currentResultArea.setFill(LinearGradient.valueOf("from 0% 0% to 100% 100%, #ff00ff  0% , #00ffff 100%"));
+                currentResultArea.setVisible(true);
+            } else {
+                word.changeRate(false);
+                word.incrementWrongs();
+                wrongAnswersAmount++;
+                currentResult.setText("WRONG");
+                currentResult.setTextFill(LinearGradient.valueOf("from 0% 0% to 100% 100%, #ff4000  0% , #ffff00 100%"));
+                currentResult.setVisible(true);
+                currentResultArea.setFill(LinearGradient.valueOf("from 0% 0% to 100% 100%, #ffff00  0% , #ff4000 100%"));
+                currentResultArea.setVisible(true);
+            }
+            DataSource.update(word);
+            if (!isFinished) {
+                checkAndNext.setText(NEXT);
+            } else {
+                checkAndNext.setDisable(true);
+                setDisables(false);
+                correctAnswers.setText(String.valueOf(correctAnswersAmount));
+                wrongAnswers.setText(String.valueOf(wrongAnswersAmount));
+                resultsPane.setVisible(true);
+            }
         }
     }
 
     private void next() {
         checkAndNext.setText(CHECK);
-        //TODO
+        wordToTranslate.setText(main.getWords().get(currentWord).getWord());
+        translation.setText(null);
+        currentResult.setVisible(false);
+        currentResultArea.setVisible(false);
     }
 
     private boolean wordAdd() {
@@ -142,6 +199,8 @@ public class MainWindowController {
     }
 
     private void clearActionPane() {
+        currentWord = 0;
+        wordsProgress.setProgress(0);
         wordToTranslate.setText(null);
         translation.setText(null);
         checkAndNext.setText(CHECK);
@@ -149,6 +208,10 @@ public class MainWindowController {
         currentResultArea.setVisible(false);
         currentResult.setVisible(false);
         resultsPane.setVisible(false);
+        correctAnswersAmount = 0;
+        wrongAnswersAmount = 0;
+        correctAnswers.setText(null);
+        wrongAnswers.setText(null);
     }
 
     private void setDisables(boolean isDisable) {

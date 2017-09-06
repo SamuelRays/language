@@ -1,6 +1,8 @@
 package com;
 
 import com.util.DataSource;
+import com.util.ReviseType;
+import com.util.Word;
 import com.view.AddCategoryController;
 import com.view.AddLanguageController;
 import com.view.AddWordController;
@@ -14,14 +16,17 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.List;
 
 public class Main extends Application {
     private Stage primaryStage;
     private String language;
     private String category;
+    private ReviseType reviseType;
     private int wordsAmount;
     private String newLanguage;
     private String newCategory;
+    private List<Word> words;
 
     public static void main(String[] args) {
         launch(args);
@@ -143,6 +148,18 @@ public class Main extends Application {
         this.category = category;
     }
 
+    public ReviseType getReviseType() {
+        return reviseType;
+    }
+
+    public void setReviseType(ReviseType reviseType) {
+        this.reviseType = reviseType;
+    }
+
+    public int getWordsAmount() {
+        return wordsAmount;
+    }
+
     public String getNewLanguage() {
         return newLanguage;
     }
@@ -159,11 +176,16 @@ public class Main extends Application {
         this.newCategory = newCategory;
     }
 
-    public void setWordsAmount() {
-
+    public List<Word> getWords() {
+        return words;
     }
 
-    public int getWordsAmount() {
-        return wordsAmount;
+    public void setWords(List<Word> words) {
+        this.words = words;
+        if (words != null) {
+            wordsAmount = words.size();
+        } else {
+            wordsAmount = 0;
+        }
     }
 }

@@ -3,26 +3,48 @@ package com.util;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.sql.*;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.Date;
 
 public class DataSource {
     private static final SimpleDateFormat FORMAT = new SimpleDateFormat("yyyy-MM-dd");
-    private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    private static final String DB_URL = "jdbc:mysql://localhost/words";
-    private static final String USER_NAME = "root";
-    private static final String PASSWORD = "root";
     private static Connection connection;
     private static Statement statement;
 
     public static void connect() {
+        Properties properties = null;
         try {
-            Class.forName(JDBC_DRIVER);
-            connection = DriverManager.getConnection(DB_URL, USER_NAME, PASSWORD);
+            properties = new Properties();
+            properties.load(new FileInputStream("resources/config.properties"));
+            Class.forName(properties.getProperty("driverClassName"));
+            connection = DriverManager.getConnection(properties.getProperty("url"),
+                    properties.getProperty("username"), properties.getProperty("password"));
             statement = connection.createStatement();
-        } catch (ClassNotFoundException | SQLException e) {
+            String date = properties.getProperty("lastDate");
+            if (!date.equals("")) {
+                int count = (int) ((new Date().getTime() - FORMAT.parse(date).getTime()) / 86400000);
+                if (count != 0) {
+                    double times = 1;
+                    for (int i = 0; i < count; i++) {
+                        times *= 0.95;
+                    }
+                    statement.executeUpdate("UPDATE main SET rate = rate * " + times);
+                }
+            }
+            properties.setProperty("lastDate", FORMAT.format(new Date()));
+            properties.store(new FileOutputStream("resources/config.properties"),"");
+        } catch (ClassNotFoundException | SQLException | IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            if (properties != null) {
+                properties.setProperty("lastDate", FORMAT.format(new Date()));
+            }
             e.printStackTrace();
         }
     }
@@ -219,5 +241,13 @@ public class DataSource {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public static Connection getConnection() {
+        return connection;
+    }
+
+    public static Statement getStatement() {
+        return statement;
     }
 }

@@ -2,6 +2,7 @@ package com.view;
 
 import com.Main;
 import com.util.DataSource;
+import com.util.Result;
 import com.util.ReviseType;
 import com.util.Word;
 import javafx.collections.FXCollections;
@@ -10,7 +11,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.LinearGradient;
 import javafx.scene.shape.Rectangle;
 
 public class MainWindowController {
@@ -39,9 +39,9 @@ public class MainWindowController {
     @FXML
     private TextField translation;
     @FXML
-    private Rectangle currentResultArea;
-    @FXML
     private Label currentResult;
+    @FXML
+    private Rectangle currentResultArea;
     @FXML
     private Button checkAndNext;
     @FXML
@@ -64,6 +64,9 @@ public class MainWindowController {
             }
         });
         reviseType.setItems(FXCollections.observableArrayList(ReviseType.names()));
+        if (!reviseType.getItems().isEmpty()) {
+            reviseType.setValue(reviseType.getItems().get(0));
+        }
     }
 
     private void setLanguages() {
@@ -122,7 +125,7 @@ public class MainWindowController {
                 clearActionPane();
                 actionPane.setVisible(true);
                 wordsAmounts.setText(currentWord + "/" + main.getWordsAmount());
-                wordToTranslate.setText(main.getWords().get(currentWord).getWord());
+                wordToTranslate.setText(main.getWords().get(currentWord).getTranslation());
             }
         }
     }
@@ -138,7 +141,7 @@ public class MainWindowController {
 
     @FXML
     private void showResults() {
-
+        main.showResultsWindow();
     }
 
     private void check() {
@@ -152,23 +155,23 @@ public class MainWindowController {
             boolean isFinished = wordAdd();
             word.incrementUses();
             word.setUsedDate();
-            if (translation.getText().equalsIgnoreCase(word.getTranslation())) {
+            if (translation.getText().equalsIgnoreCase(word.getWord())) {
                 word.changeRate(true);
                 word.incrementCorrects();
                 correctAnswersAmount++;
-                currentResult.setText("CORRECT");
-                currentResult.setTextFill(LinearGradient.valueOf("from 0% 0% to 100% 100%, #00ffff , #ff00ff 100%"));
+                currentResult.setText(Result.CORRECT.getName());
+                currentResult.setTextFill(Result.CORRECT.getTextPaint());
                 currentResult.setVisible(true);
-                currentResultArea.setFill(LinearGradient.valueOf("from 0% 0% to 100% 100%, #ff00ff  0% , #00ffff 100%"));
+                currentResultArea.setFill(Result.CORRECT.getFieldPaint());
                 currentResultArea.setVisible(true);
             } else {
                 word.changeRate(false);
                 word.incrementWrongs();
                 wrongAnswersAmount++;
-                currentResult.setText("WRONG");
-                currentResult.setTextFill(LinearGradient.valueOf("from 0% 0% to 100% 100%, #ff4000  0% , #ffff00 100%"));
+                currentResult.setText(Result.WRONG.getName());
+                currentResult.setTextFill(Result.WRONG.getTextPaint());
                 currentResult.setVisible(true);
-                currentResultArea.setFill(LinearGradient.valueOf("from 0% 0% to 100% 100%, #ffff00  0% , #ff4000 100%"));
+                currentResultArea.setFill(Result.WRONG.getFieldPaint());
                 currentResultArea.setVisible(true);
             }
             DataSource.update(word);
@@ -186,7 +189,7 @@ public class MainWindowController {
 
     private void next() {
         checkAndNext.setText(CHECK);
-        wordToTranslate.setText(main.getWords().get(currentWord).getWord());
+        wordToTranslate.setText(main.getWords().get(currentWord).getTranslation());
         translation.setText(null);
         currentResult.setVisible(false);
         currentResultArea.setVisible(false);

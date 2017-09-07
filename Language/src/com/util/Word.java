@@ -7,6 +7,7 @@ public class Word {
     private String word;
     private String translation;
     private String userTranslation;
+    private boolean isCorrect;
     private String language;
     private double rate;
     private int uses;
@@ -48,6 +49,10 @@ public class Word {
         return userTranslation;
     }
 
+    public boolean isCorrect() {
+        return isCorrect;
+    }
+
     public void setUserTranslation(String userTranslation) {
         this.userTranslation = userTranslation;
     }
@@ -74,6 +79,7 @@ public class Word {
 
     public void incrementCorrects() {
         corrects++;
+        isCorrect = true;
     }
 
     public int getWrongs() {
@@ -82,6 +88,7 @@ public class Word {
 
     public void incrementWrongs() {
         wrongs++;
+        isCorrect = false;
     }
 
     public String getLastUsedDate() {

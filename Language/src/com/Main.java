@@ -3,19 +3,18 @@ package com;
 import com.util.DataSource;
 import com.util.ReviseType;
 import com.util.Word;
-import com.view.AddCategoryController;
-import com.view.AddLanguageController;
-import com.view.AddWordController;
-import com.view.MainWindowController;
+import com.view.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 public class Main extends Application {
@@ -30,6 +29,16 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch(args);
+        try {
+            DataSource.getStatement().close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            DataSource.getConnection().close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -113,6 +122,28 @@ public class Main extends Application {
             AddCategoryController controller = loader.getController();
             controller.setMain(this);
             controller.setStage(stage);
+            stage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showResultsWindow() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("view/Results.fxml"));
+            AnchorPane pane = (AnchorPane) loader.load();
+            Stage stage = new Stage();
+            stage.setResizable(false);
+            stage.setTitle("Results");
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(primaryStage);
+            Scene scene = new Scene(pane);
+            stage.setScene(scene);
+            ResultsController controller = loader.getController();
+            controller.setMain(this);
+            controller.setStage(stage);
+            controller.setWord(0);
             stage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();

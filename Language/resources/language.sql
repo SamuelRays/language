@@ -36,7 +36,6 @@ corrects int not null,
 wrongs int not null,
 add_date date not null,
 last_used date,
-primary key(word, translation),
 foreign key(language) references languages(language),
 foreign key(category) references categories(category),
 foreign key(part_of_speech) references parts(part_of_speech));

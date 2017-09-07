@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="280.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.view.ResultsController">
+   <children>
+      <Label fx:id="wordNumber" layoutX="20.0" layoutY="10.0" text="Word #1" AnchorPane.topAnchor="10.0" />
+      <TextField fx:id="word" editable="false" layoutX="10.0" layoutY="30.0" prefWidth="230.0" />
+      <Label layoutX="20.0" layoutY="60.0" text="Correct translation" />
+      <TextField fx:id="correctTranslation" editable="false" layoutX="10.0" layoutY="80.0" prefWidth="230.0" />
+      <Label layoutX="20.0" layoutY="110.0" text="Your translation" />
+      <TextField fx:id="yourTranslation" editable="false" layoutX="10.0" layoutY="130.0" prefWidth="230.0" />
+      <Button fx:id="previous" layoutX="28.0" layoutY="213.0" mnemonicParsing="false" onAction="#previous" prefWidth="110.0" text="Previous" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="10.0" />
+      <Button fx:id="next" layoutX="38.0" layoutY="223.0" mnemonicParsing="false" onAction="#next" prefWidth="110.0" text="Next" AnchorPane.bottomAnchor="45.0" AnchorPane.rightAnchor="10.0" />
+      <Rectangle fx:id="currentResultArea" arcHeight="5.0" arcWidth="5.0" height="30.0" layoutX="28.0" layoutY="181.0" stroke="BLACK" strokeType="INSIDE" width="230.0" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="10.0">
+         <fill>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop color="YELLOW" />
+                  <Stop color="#ff4000" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Rectangle>
+      <Label fx:id="currentResult" alignment="CENTER" layoutX="10.0" layoutY="170.0" prefWidth="230.0" text="WRONG" AnchorPane.bottomAnchor="77.0" AnchorPane.leftAnchor="10.0">
+         <font>
+            <Font name="Angsana New Bold" size="24.0" />
+         </font>
+         <textFill>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop color="#ff4000" />
+                  <Stop color="YELLOW" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </textFill>
+      </Label>
+      <Button layoutX="103.0" layoutY="271.0" mnemonicParsing="false" onAction="#close" prefWidth="230.0" text="Close" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" />
+   </children>
+</AnchorPane>

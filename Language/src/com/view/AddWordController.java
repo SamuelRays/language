@@ -33,6 +33,7 @@ public class AddWordController {
         main.showAddLanguageWindow();
         if (main.getNewLanguage() != null) {
             language.getItems().add(main.getNewLanguage());
+            language.setValue(main.getNewLanguage());
         }
     }
 
@@ -41,6 +42,7 @@ public class AddWordController {
         main.showAddCategoryWindow();
         if (main.getNewCategory() != null) {
             category.getItems().add(main.getNewCategory());
+            category.setValue(main.getNewCategory());
         }
     }
 

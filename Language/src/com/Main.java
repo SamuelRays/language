@@ -29,6 +29,7 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch(args);
+        DataSource.backup();
         try {
             DataSource.getStatement().close();
         } catch (SQLException e) {

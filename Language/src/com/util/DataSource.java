@@ -16,11 +16,11 @@ public class DataSource {
     private static final SimpleDateFormat FORMAT = new SimpleDateFormat("yyyy-MM-dd");
     private static Connection connection;
     private static Statement statement;
+    private static Properties properties;
 
     public static void connect() {
-        Properties properties = null;
+        properties = new Properties();
         try {
-            properties = new Properties();
             properties.load(new FileInputStream("resources/config.properties"));
             Class.forName(properties.getProperty("driverClassName"));
             connection = DriverManager.getConnection(properties.getProperty("url"),
@@ -45,6 +45,16 @@ public class DataSource {
             if (properties != null) {
                 properties.setProperty("lastDate", FORMAT.format(new Date()));
             }
+            e.printStackTrace();
+        }
+    }
+
+    public static void backup() {
+        try {
+            Runtime.getRuntime().exec(String.format("mysqldump -u%s -h%s -p%s words -r %s",
+                    properties.getProperty("username"), properties.getProperty("host"),
+                    properties.getProperty("password"), properties.getProperty("backupFile")));
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

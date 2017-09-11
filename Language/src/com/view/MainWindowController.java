@@ -6,8 +6,6 @@ import com.util.Result;
 import com.util.ReviseType;
 import com.util.Word;
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
@@ -37,6 +35,8 @@ public class MainWindowController {
     @FXML
     private TextField wordToTranslate;
     @FXML
+    private Label translateTo;
+    @FXML
     private TextField translation;
     @FXML
     private Label currentResult;
@@ -55,12 +55,9 @@ public class MainWindowController {
     private void initialize() {
         actionPane.setVisible(false);
         setLanguages();
-        language.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                if (language.getValue() != null) {
-                    setCategories(language.getValue());
-                }
+        language.setOnAction(event -> {
+            if (language.getValue() != null) {
+                setCategories(language.getValue());
             }
         });
         reviseType.setItems(FXCollections.observableArrayList(ReviseType.names()));
@@ -126,6 +123,7 @@ public class MainWindowController {
                 actionPane.setVisible(true);
                 wordsAmounts.setText(currentWord + "/" + main.getWordsAmount());
                 wordToTranslate.setText(main.getWords().get(currentWord).getTranslation());
+                translateTo.setText("Translate to " + main.getWords().get(currentWord).getLanguage());
             }
         }
     }
@@ -190,6 +188,7 @@ public class MainWindowController {
     private void next() {
         checkAndNext.setText(CHECK);
         wordToTranslate.setText(main.getWords().get(currentWord).getTranslation());
+        translateTo.setText("Translate to " + main.getWords().get(currentWord).getLanguage());
         translation.setText(null);
         currentResult.setVisible(false);
         currentResultArea.setVisible(false);

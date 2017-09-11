@@ -140,11 +140,11 @@ public class DataSource {
         return result;
     }
 
-    public static boolean isWordPresent(String word, String language) {
+    public static boolean isWordPresent(String word, String translation, String language) {
         boolean result = false;
         try {
             ResultSet set = statement.executeQuery("SELECT * FROM main WHERE language = \""
-                    + language + "\" AND word = \"" + word + "\"");
+                    + language + "\" AND word = \"" + word + "\" AND translation = \"" + translation + "\"");
             result = set.next();
         } catch (SQLException e) {
             e.printStackTrace();

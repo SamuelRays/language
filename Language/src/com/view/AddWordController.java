@@ -24,8 +24,15 @@ public class AddWordController {
     @FXML
     private void initialize() {
         language.setItems(DataSource.availableLanguages());
+        if (!language.getItems().isEmpty()) {
+            language.setValue(language.getItems().get(0));
+        }
         category.setItems(DataSource.allCategories());
+        if (!category.getItems().isEmpty()) {
+            category.setValue(category.getItems().get(0));
+        }
         partOfSpeech.setItems(DataSource.partsOfSpeech());
+        partOfSpeech.setValue(partOfSpeech.getItems().get(0));
     }
 
     @FXML
@@ -68,7 +75,8 @@ public class AddWordController {
             main.alert("No translation!!!",
                     "The translation field is empty!!!",
                     "Are you kidding me??? The word requires a translation you dickhead!!!");
-        } else if (DataSource.isWordPresent(wordInLanguageYouLearn.getText(), language.getValue())) {
+        } else if (DataSource.isWordPresent(wordInLanguageYouLearn.getText(),
+                wordInLanguageYouKnow.getText(), language.getValue())) {
             main.alert("Is present!!!",
                     "The word exists already!!!",
                     "Open your eyes!!!");

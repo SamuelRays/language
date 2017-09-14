@@ -197,6 +197,7 @@ public class MainWindowController {
     private boolean wordAdd() {
         currentWord++;
         wordsProgress.setProgress((double) currentWord / main.getWordsAmount());
+        wordsAmounts.setText(currentWord + "/" + main.getWordsAmount());
         return currentWord == main.getWordsAmount();
     }
 

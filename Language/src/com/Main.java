@@ -45,7 +45,7 @@ public class Main extends Application {
         DataSource.connect();
         this.primaryStage = primaryStage;
         primaryStage.setResizable(false);
-        primaryStage.setTitle("Mỹ Hân rất quan trọng");
+        primaryStage.setTitle("Mỹ Hân làm tôi cười");
         initMainWindow();
     }
 

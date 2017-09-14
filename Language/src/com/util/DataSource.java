@@ -202,24 +202,28 @@ public class DataSource {
         if (reviseType.equals(ReviseType.NEW)) {
             if (queryAdd.equals("")) {
                 queryAdd = " WHERE last_used IS NULL OR add_date >= \"" +
-                        FORMAT.format(new Date(new Date().getTime() - 86400000)) + "\"";
+                        FORMAT.format(new Date(new Date().getTime() - 86400000)) + "\"" +
+                        " LIMIT 40";
             } else {
                 queryAdd += " AND (last_used IS NULL OR add_date >= \"" +
-                        FORMAT.format(new Date(new Date().getTime() - 86400000)) + "\")";
+                        FORMAT.format(new Date(new Date().getTime() - 86400000)) + "\")" +
+                        " LIMIT 40";
             }
         } else if (reviseType.equals(ReviseType.OLD)) {
             if (queryAdd.equals("")) {
                 queryAdd = " WHERE last_used <= \"" +
-                        FORMAT.format(new Date(new Date().getTime() - 864000000)) + "\"";
+                        FORMAT.format(new Date(new Date().getTime() - 864000000)) + "\"" +
+                        " LIMIT 40";
             } else {
                 queryAdd += " AND (last_used <= \"" +
-                        FORMAT.format(new Date(new Date().getTime() - 864000000)) + "\")";
+                        FORMAT.format(new Date(new Date().getTime() - 864000000)) + "\")" +
+                        " LIMIT 40";
             }
         } else if (reviseType.equals(ReviseType.WEAK)) {
             if (queryAdd.equals("")) {
-                queryAdd = " WHERE rate <= 0.5";
+                queryAdd = " WHERE rate <= 0.6 LIMIT 40";
             } else {
-                queryAdd += " AND rate <= 0.5";
+                queryAdd += " AND rate <= 0.6 LIMIT 40";
             }
         } else if (reviseType.equals(ReviseType.WRONGS)) {
             queryAdd += " ORDER BY wrongs DESC LIMIT 30";

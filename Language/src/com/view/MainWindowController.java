@@ -25,6 +25,8 @@ public class MainWindowController {
     @FXML
     private ChoiceBox<String> reviseType;
     @FXML
+    private Button addWord;
+    @FXML
     private Button start;
     @FXML
     private AnchorPane actionPane;
@@ -222,6 +224,7 @@ public class MainWindowController {
         category.setDisable(isDisable);
         reviseType.setDisable(isDisable);
         start.setDisable(isDisable);
+        addWord.setDisable(isDisable);
     }
 
     public void setMain(Main main) {

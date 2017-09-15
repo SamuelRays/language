@@ -67,11 +67,11 @@ public class AddWordController {
             main.alert("No part of speech!!!",
                     "The part of speech has not been chosen!!!",
                     "Choose the part of speech you dunce!!!");
-        } else if (wordInLanguageYouLearn.getText() == null) {
+        } else if (wordInLanguageYouLearn.getText() == null || wordInLanguageYouLearn.getText().isEmpty()) {
             main.alert("No word!!!",
                     "The word field is empty!!!",
                     "What's wrong with you??? Write the word you stupid monkey!!!");
-        } else if (wordInLanguageYouKnow.getText() == null) {
+        } else if (wordInLanguageYouKnow.getText() == null || wordInLanguageYouKnow.getText().isEmpty()) {
             main.alert("No translation!!!",
                     "The translation field is empty!!!",
                     "Are you kidding me??? The word requires a translation you dickhead!!!");

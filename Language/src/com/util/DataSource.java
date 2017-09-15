@@ -32,7 +32,7 @@ public class DataSource {
                 if (count != 0) {
                     double times = 1;
                     for (int i = 0; i < count; i++) {
-                        times *= 0.95;
+                        times *= 0.98;
                     }
                     statement.executeUpdate("UPDATE main SET rate = rate * " + times);
                 }
@@ -202,11 +202,11 @@ public class DataSource {
         if (reviseType.equals(ReviseType.NEW)) {
             if (queryAdd.equals("")) {
                 queryAdd = " WHERE last_used IS NULL OR add_date >= \"" +
-                        FORMAT.format(new Date(new Date().getTime() - 86400000)) + "\"" +
+                        FORMAT.format(new Date(new Date().getTime() - 259200000)) + "\"" +
                         " LIMIT 40";
             } else {
                 queryAdd += " AND (last_used IS NULL OR add_date >= \"" +
-                        FORMAT.format(new Date(new Date().getTime() - 86400000)) + "\")" +
+                        FORMAT.format(new Date(new Date().getTime() - 259200000)) + "\")" +
                         " LIMIT 40";
             }
         } else if (reviseType.equals(ReviseType.OLD)) {
@@ -221,9 +221,9 @@ public class DataSource {
             }
         } else if (reviseType.equals(ReviseType.WEAK)) {
             if (queryAdd.equals("")) {
-                queryAdd = " WHERE rate <= 0.6 LIMIT 40";
+                queryAdd = " WHERE rate <= 0.5 LIMIT 40";
             } else {
-                queryAdd += " AND rate <= 0.6 LIMIT 40";
+                queryAdd += " AND rate <= 0.5 LIMIT 40";
             }
         } else if (reviseType.equals(ReviseType.WRONGS)) {
             queryAdd += " ORDER BY wrongs DESC LIMIT 30";
@@ -249,9 +249,10 @@ public class DataSource {
         try {
             statement.executeUpdate(String.format(Locale.US, "UPDATE main SET rate = %f, uses = %d, " +
                             "corrects = %d, wrongs = %d, last_used = \"%s\" " +
-                            "WHERE word = \"%s\" AND language = \"%s\"",
+                            "WHERE word = \"%s\" AND translation =\"%s\" AND language = \"%s\"",
                     word.getRate(), word.getUses(), word.getCorrects(),
-                    word.getWrongs(), word.getLastUsedDate(), word.getWord(), word.getLanguage()));
+                    word.getWrongs(), word.getLastUsedDate(), word.getWord(),
+                    word.getTranslation(), word.getLanguage()));
         } catch (SQLException e) {
             e.printStackTrace();
         }

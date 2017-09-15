@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
@@ -18,7 +12,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.view.MainWindowController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.view.MainWindowController">
    <children>
       <ChoiceBox fx:id="language" layoutX="25.0" layoutY="38.0" prefWidth="150.0" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="38.0" />
       <ChoiceBox fx:id="category" layoutX="25.0" layoutY="98.0" prefWidth="150.0" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="98.0" />
@@ -34,7 +28,7 @@
             <Label fx:id="translateTo" layoutX="40.0" layoutY="163.0" text="Translat to" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="163.0" />
             <TextField fx:id="wordToTranslate" editable="false" layoutX="30.0" layoutY="115.0" prefWidth="300.0" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="115.0" />
             <TextField fx:id="translation" layoutX="30.0" layoutY="190.0" prefWidth="300.0" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="190.0" />
-            <Button fx:id="checkAndNext" layoutX="250.0" layoutY="239.0" mnemonicParsing="false" onAction="#checkOrNext" prefWidth="80.0" text="Check" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="239.0" />
+            <Button fx:id="checkAndNext" layoutX="260.0" layoutY="241.0" mnemonicParsing="false" onAction="#checkOrNext" prefWidth="80.0" text="Check" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="241.0" />
             <Rectangle fx:id="currentResultArea" arcHeight="5.0" arcWidth="5.0" height="30.0" layoutX="30.0" layoutY="240.0" stroke="BLACK" strokeType="INSIDE" width="200.0" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="240.0">
                <fill>
                   <LinearGradient endX="1.0" endY="1.0">
@@ -71,6 +65,6 @@
             <Label fx:id="wordsAmounts" layoutX="305.0" layoutY="22.0" text="2/50" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="22.0" />
          </children>
       </AnchorPane>
-      <Button fx:id="addNewWord" layoutX="25.0" layoutY="259.0" mnemonicParsing="false" onAction="#addNewWord" prefWidth="150.0" text="Add new word" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="25.0" />
+      <Button fx:id="addWord" layoutX="25.0" layoutY="259.0" mnemonicParsing="false" onAction="#addNewWord" prefWidth="150.0" text="Add new word" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="25.0" />
    </children>
 </AnchorPane>

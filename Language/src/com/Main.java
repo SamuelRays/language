@@ -44,7 +44,6 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         DataSource.connect();
         this.primaryStage = primaryStage;
-        primaryStage.setResizable(false);
         primaryStage.setTitle("Mỹ Hân làm tôi cười");
         initMainWindow();
     }
@@ -56,6 +55,8 @@ public class Main extends Application {
             AnchorPane pane = (AnchorPane) loader.load();
             Scene scene = new Scene(pane);
             primaryStage.setScene(scene);
+            primaryStage.setResizable(false);
+            primaryStage.sizeToScene();
             MainWindowController controller = loader.getController();
             controller.setMain(this);
             primaryStage.show();
@@ -71,6 +72,7 @@ public class Main extends Application {
             AnchorPane pane = (AnchorPane) loader.load();
             Stage stage = new Stage();
             stage.setResizable(false);
+            stage.sizeToScene();
             stage.setTitle("Adding new word");
             stage.initModality(Modality.WINDOW_MODAL);
             stage.initOwner(primaryStage);
@@ -92,6 +94,7 @@ public class Main extends Application {
             AnchorPane pane = (AnchorPane) loader.load();
             Stage stage = new Stage();
             stage.setResizable(false);
+            stage.sizeToScene();
             stage.setTitle("Adding new language");
             stage.initModality(Modality.WINDOW_MODAL);
             stage.initOwner(primaryStage);
@@ -113,6 +116,7 @@ public class Main extends Application {
             AnchorPane pane = (AnchorPane) loader.load();
             Stage stage = new Stage();
             stage.setResizable(false);
+            stage.sizeToScene();
             stage.setTitle("Adding new category");
             stage.initModality(Modality.WINDOW_MODAL);
             stage.initOwner(primaryStage);
@@ -134,6 +138,7 @@ public class Main extends Application {
             AnchorPane pane = (AnchorPane) loader.load();
             Stage stage = new Stage();
             stage.setResizable(false);
+            stage.sizeToScene();
             stage.setTitle("Results");
             stage.initModality(Modality.WINDOW_MODAL);
             stage.initOwner(primaryStage);

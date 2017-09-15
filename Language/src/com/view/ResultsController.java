@@ -67,7 +67,7 @@ public class ResultsController {
         word.setText(w.getTranslation());
         correctTranslation.setText(w.getWord());
         yourTranslation.setText(w.getUserTranslation());
-        if (w.getCorrects() != 0) {
+        if (w.isCorrect()) {
             currentResult.setText(Result.CORRECT.getName());
             currentResult.setTextFill(Result.CORRECT.getTextPaint());
             currentResultArea.setFill(Result.CORRECT.getFieldPaint());

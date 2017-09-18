@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
@@ -30,10 +31,27 @@ public class ResultsController {
     private Button previous;
     @FXML
     private Button next;
+    @FXML
+    private Button close;
 
     @FXML
     private void initialize() {
-
+        next.requestFocus();
+        next.setOnKeyPressed(event -> {
+            if (event.getCode().equals(KeyCode.RIGHT) && !next.isDisable()) {
+                next();
+            }
+        });
+        previous.setOnKeyPressed(event -> {
+            if (event.getCode().equals(KeyCode.LEFT) && !previous.isDisable()) {
+                previous();
+            }
+        });
+        close.setOnKeyPressed(event -> {
+            if (event.getCode().equals(KeyCode.ENTER) && !close.isDisable()) {
+                close();
+            }
+        });
     }
 
     @FXML

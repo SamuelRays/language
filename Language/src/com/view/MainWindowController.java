@@ -8,6 +8,8 @@ import com.util.Word;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 
@@ -52,6 +54,8 @@ public class MainWindowController {
     private Label correctAnswers;
     @FXML
     private Label wrongAnswers;
+    @FXML
+    private Button watchResults;
 
     @FXML
     private void initialize() {
@@ -65,6 +69,65 @@ public class MainWindowController {
         reviseType.setItems(FXCollections.observableArrayList(ReviseType.names()));
         if (!reviseType.getItems().isEmpty()) {
             reviseType.setValue(reviseType.getItems().get(0));
+        }
+        language.requestFocus();
+        language.setOnKeyPressed(event -> {
+            handleUpDown(language, event);
+        });
+        category.setOnKeyPressed(event -> {
+            handleUpDown(category, event);
+        });
+        reviseType.setOnKeyPressed(event -> {
+            handleUpDown(reviseType, event);
+        });
+        translation.setOnKeyPressed(event -> {
+            if (event.getCode().equals(KeyCode.ENTER) && !checkAndNext.isDisable()) {
+                checkOrNext();
+            }
+        });
+        checkAndNext.setOnKeyPressed(event -> {
+            if (event.getCode().equals(KeyCode.ENTER) && !checkAndNext.isDisable()) {
+                checkOrNext();
+            }
+        });
+        start.setOnKeyPressed(event -> {
+            if (event.getCode().equals(KeyCode.ENTER) && !start.isDisable()) {
+                start();
+            }
+        });
+        addWord.setOnKeyPressed(event -> {
+            if (event.getCode().equals(KeyCode.ENTER) && !addWord.isDisable()) {
+                addNewWord();
+            }
+        });
+        watchResults.setOnKeyPressed(event -> {
+            if (event.getCode().equals(KeyCode.ENTER) && resultsPane.isVisible()) {
+                showResults();
+            }
+        });
+    }
+    
+    private void handleUpDown(ChoiceBox<String> box, KeyEvent event) {
+        if (event.getCode().equals(KeyCode.LEFT)) {
+            if (!box.getItems().isEmpty()) {
+                if (box.getValue() == null) {
+                    box.setValue(box.getItems().get(0));
+                }
+                int index = box.getItems().indexOf(box.getValue());
+                if (index != 0) {
+                    box.setValue(box.getItems().get(index - 1));
+                }
+            }
+        } else if (event.getCode().equals(KeyCode.RIGHT)) {
+            if (!box.getItems().isEmpty()) {
+                if (box.getValue() == null) {
+                    box.setValue(box.getItems().get(0));
+                }
+                int index = box.getItems().indexOf(box.getValue());
+                if (index != box.getItems().size() - 1) {
+                    box.setValue(box.getItems().get(index + 1));
+                }
+            }
         }
     }
 
@@ -126,6 +189,7 @@ public class MainWindowController {
                 wordsAmounts.setText(currentWord + "/" + main.getWordsAmount());
                 wordToTranslate.setText(main.getWords().get(currentWord).getTranslation());
                 translateTo.setText("Translate to " + main.getWords().get(currentWord).getLanguage());
+                translation.requestFocus();
             }
         }
     }
@@ -149,6 +213,7 @@ public class MainWindowController {
             main.alert("Empty field!!!",
                     "The translation field is empty!!!",
                     "Write something you schmuck!!!");
+            translation.requestFocus();
         } else {
             Word word = main.getWords().get(currentWord);
             word.setUserTranslation(translation.getText());
@@ -177,12 +242,14 @@ public class MainWindowController {
             DataSource.update(word);
             if (!isFinished) {
                 checkAndNext.setText(NEXT);
+                checkAndNext.requestFocus();
             } else {
                 checkAndNext.setDisable(true);
                 setDisables(false);
                 correctAnswers.setText(String.valueOf(correctAnswersAmount));
                 wrongAnswers.setText(String.valueOf(wrongAnswersAmount));
                 resultsPane.setVisible(true);
+                watchResults.requestFocus();
             }
         }
     }
@@ -194,6 +261,7 @@ public class MainWindowController {
         translation.setText(null);
         currentResult.setVisible(false);
         currentResultArea.setVisible(false);
+        translation.requestFocus();
     }
 
     private boolean wordAdd() {

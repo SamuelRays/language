@@ -36,7 +36,6 @@ public class ResultsController {
 
     @FXML
     private void initialize() {
-        next.requestFocus();
         next.setOnKeyPressed(event -> {
             if (event.getCode().equals(KeyCode.RIGHT) && !next.isDisable()) {
                 next();
@@ -102,5 +101,6 @@ public class ResultsController {
 
     public void setMain(Main main) {
         this.main = main;
+        next.requestFocus();
     }
 }

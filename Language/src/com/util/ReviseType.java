@@ -6,7 +6,8 @@ public enum ReviseType {
     OLD("Old"),
     WEAK("Weak"),
     WRONGS("Wrongs"),
-    SHORT("Short");
+    SHORT("Short"),
+    RANDOM("Random");
 
     private String name;
 

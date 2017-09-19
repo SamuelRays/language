@@ -229,6 +229,8 @@ public class DataSource {
             queryAdd += " ORDER BY wrongs DESC LIMIT 30";
         } else if (reviseType.equals(ReviseType.SHORT)) {
             queryAdd += " ORDER BY rate LIMIT 20";
+        } else if (reviseType.equals(ReviseType.RANDOM)) {
+            queryAdd += " ORDER BY RAND() LIMIT 30";
         }
         query += queryAdd;
         try {

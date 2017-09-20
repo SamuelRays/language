@@ -203,27 +203,27 @@ public class DataSource {
             if (queryAdd.equals("")) {
                 queryAdd = " WHERE last_used IS NULL OR add_date >= \"" +
                         FORMAT.format(new Date(new Date().getTime() - 259200000)) + "\"" +
-                        " LIMIT 40";
+                        " ORDER BY RAND() LIMIT 40";
             } else {
                 queryAdd += " AND (last_used IS NULL OR add_date >= \"" +
                         FORMAT.format(new Date(new Date().getTime() - 259200000)) + "\")" +
-                        " LIMIT 40";
+                        " ORDER BY RAND() LIMIT 40";
             }
         } else if (reviseType.equals(ReviseType.OLD)) {
             if (queryAdd.equals("")) {
                 queryAdd = " WHERE last_used <= \"" +
                         FORMAT.format(new Date(new Date().getTime() - 864000000)) + "\"" +
-                        " LIMIT 40";
+                        " ORDER BY RAND() LIMIT 40";
             } else {
                 queryAdd += " AND (last_used <= \"" +
                         FORMAT.format(new Date(new Date().getTime() - 864000000)) + "\")" +
-                        " LIMIT 40";
+                        " ORDER BY RAND() LIMIT 40";
             }
         } else if (reviseType.equals(ReviseType.WEAK)) {
             if (queryAdd.equals("")) {
-                queryAdd = " WHERE rate <= 0.5 LIMIT 40";
+                queryAdd = " ORDER BY RAND() WHERE rate <= 0.5 LIMIT 40";
             } else {
-                queryAdd += " AND rate <= 0.5 LIMIT 40";
+                queryAdd += " ORDER BY RAND() AND rate <= 0.5 LIMIT 40";
             }
         } else if (reviseType.equals(ReviseType.WRONGS)) {
             queryAdd += " ORDER BY wrongs DESC LIMIT 30";
